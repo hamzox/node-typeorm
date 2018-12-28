@@ -1,6 +1,9 @@
 import * as express from 'express';
 import * as bodyParser from "body-parser";
 import "reflect-metadata";
+import { createConnection } from 'typeorm';
+import { dbOptions } from './config/db.config';
+import {  SaveEmployee } from './controllers/employee.controller';
 
 /**
  * Create Express server.
@@ -20,5 +23,18 @@ app.listen(app.get("port"), () => {
     console.log(("  App is running at http://localhost:%d in %s mode"), app.get("port"), app.get("env"));
     console.log("  Press CTRL-C to stop\n");
 });
-console.log("dasdfdfdd");
+
+/**
+ * APIs
+ */
+app.use("/api/employee/save/:employee_id", SaveEmployee);
+
+(async () => {
+    const conn = await createConnection(dbOptions);
+    console.log("***** DB CONNECTION CREATED *****");
+    
+})();
+
+
+
 module.exports = app;
