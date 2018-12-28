@@ -3,7 +3,7 @@ import * as bodyParser from "body-parser";
 import "reflect-metadata";
 import { createConnection } from 'typeorm';
 import { dbOptions } from './config/db.config';
-import {  SaveEmployee } from './controllers/employee.controller';
+import EmployeeRouter from './routes/employee.route';
 
 /**
  * Create Express server.
@@ -27,7 +27,7 @@ app.listen(app.get("port"), () => {
 /**
  * APIs
  */
-app.use("/api/employee/save/:employee_id", SaveEmployee);
+app.use("/api", EmployeeRouter);
 
 (async () => {
     const conn = await createConnection(dbOptions);
